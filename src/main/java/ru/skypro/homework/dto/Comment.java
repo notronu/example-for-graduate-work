@@ -12,4 +12,5 @@ public class Comment {
     private LocalDateTime createdAt;
     private Integer pk;
     private String text;
+    private Integer adId; // Добавлено поле для связывания с объявлением
 }
