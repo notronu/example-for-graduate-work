@@ -6,6 +6,7 @@ import ru.skypro.homework.entity.*;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Утилитарный класс для преобразования сущностей (Entity) в объекты передачи данных (DTO) и обратно.
@@ -79,7 +80,8 @@ public class MapperUtils {
         comment.setAuthor(commentEntity.getAuthor().getId());
         comment.setAuthorFirstName(commentEntity.getAuthor().getFirstName());
         // Преобразование LocalDateTime в миллисекунды
-        comment.setCreatedAt(commentEntity.getCreatedAt().toEpochSecond(ZoneOffset.UTC) * 1000);
+        String formattedDateTime = commentEntity.getCreatedAt().format(DateTimeFormatter.ISO_INSTANT);
+        comment.setCreatedAt(LocalDateTime.parse(formattedDateTime));
         return comment;
     }
 
