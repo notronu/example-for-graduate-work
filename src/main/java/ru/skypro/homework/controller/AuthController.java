@@ -27,8 +27,6 @@ public class AuthController {
 
     private final AuthService authService;
 
-
-
     /**
      * Эндпоинт для авторизации пользователя.
      * Принимает данные для входа и проверяет их корректность.
@@ -84,7 +82,3 @@ public class AuthController {
         }
     }
 }
-
-
-
-

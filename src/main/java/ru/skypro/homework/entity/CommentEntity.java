@@ -1,9 +1,9 @@
 package ru.skypro.homework.entity;
 
 import lombok.Data;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
-
 
 @Data
 @Entity

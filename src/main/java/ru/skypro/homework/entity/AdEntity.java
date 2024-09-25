@@ -1,8 +1,8 @@
 package ru.skypro.homework.entity;
 
 import lombok.Data;
-import javax.persistence.*;
 
+import javax.persistence.*;
 
 @Data
 @Entity

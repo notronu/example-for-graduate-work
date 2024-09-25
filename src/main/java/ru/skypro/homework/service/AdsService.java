@@ -3,7 +3,6 @@ package ru.skypro.homework.service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.homework.dto.*;
 
-
 import java.util.List;
 
 /**
@@ -12,6 +11,10 @@ import java.util.List;
  * а также управление изображениями и получение объявлений текущего пользователя.
  */
 public interface AdsService {
+
+    Ad createAd(CreateOrUpdateAd createOrUpdateAd, MultipartFile image, String username);
+
+    void deleteAd(int id, String username);
 
     /**
      * Возвращает список всех объявлений.

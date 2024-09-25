@@ -26,4 +26,3 @@ public interface AuthService {
     boolean register(Register register);
 
 }
-

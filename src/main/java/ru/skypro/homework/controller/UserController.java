@@ -17,7 +17,6 @@ import ru.skypro.homework.dto.User;
 import ru.skypro.homework.service.UserService;
 import ru.skypro.homework.utils.MethodLog;
 
-
 /**
  * Контроллер для обработки операций, связанных с пользователями.
  * Предоставляет эндпоинты для управления паролем, получения и обновления информации о текущем пользователе,
@@ -32,8 +31,6 @@ import ru.skypro.homework.utils.MethodLog;
 public class UserController {
 
     private final UserService userService;
-
-
 
     /**
      * Эндпоинт для обновления пароля авторизованного пользователя.

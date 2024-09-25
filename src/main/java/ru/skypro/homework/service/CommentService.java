@@ -44,4 +44,6 @@ public interface CommentService {
      * @return обновленный объект {@link Comment}.
      */
     Comment updateComment(int adId, int commentId, CreateOrUpdateComment createOrUpdateComment);
+
+    Comment updateComment(int adId, int commentId, CreateOrUpdateComment createOrUpdateComment, String username);
 }

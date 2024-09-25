@@ -1,14 +1,16 @@
 package ru.skypro.homework.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import ru.skypro.homework.dto.*;
 import ru.skypro.homework.entity.CommentEntity;
+import ru.skypro.homework.entity.UserEntity;
 import ru.skypro.homework.repository.CommentRepository;
 import ru.skypro.homework.repository.AdsRepository;
+import ru.skypro.homework.repository.UserRepository;
 import ru.skypro.homework.service.CommentService;
 import ru.skypro.homework.utils.MapperUtils;
-
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,6 +27,7 @@ public class CommentServiceImpl implements CommentService {
 
     private final CommentRepository commentRepository;
     private final AdsRepository adsRepository;
+    private final UserRepository userRepository;
 
     /**
      * Получает список комментариев, связанных с определённым объявлением.
@@ -84,5 +87,25 @@ public class CommentServiceImpl implements CommentService {
             return MapperUtils.toCommentDto(commentEntity);
         }
         return null;
+    }
+
+    @Override
+    public Comment updateComment(int adId, int commentId, CreateOrUpdateComment createOrUpdateComment, String username) {
+        CommentEntity commentEntity = commentRepository.findById(commentId)
+                .orElseThrow(() -> new IllegalArgumentException("Комментарий не найден"));
+
+        // Поиск пользователя
+        UserEntity userEntity = userRepository.findByUsername(username);
+        if (userEntity == null) {
+            throw new IllegalArgumentException("Пользователь не найден");
+        }
+
+        if (!commentEntity.getAuthor().getId().equals(userEntity.getId())) {
+            throw new AccessDeniedException("Вы не являетесь автором этого комментария");
+        }
+
+        commentEntity.setText(createOrUpdateComment.getText());
+        commentRepository.save(commentEntity);
+        return MapperUtils.toCommentDto(commentEntity);
     }
 }

@@ -15,9 +15,6 @@ import ru.skypro.homework.dto.*;
 import ru.skypro.homework.service.AdsService;
 import ru.skypro.homework.utils.MethodLog;
 
-
-
-
 /**
  * Контроллер для обработки операций с объявлениями.
  * Предоставляет эндпоинты для создания, получения, обновления и удаления объявлений,
@@ -31,9 +28,6 @@ import ru.skypro.homework.utils.MethodLog;
 @RequestMapping("/ads")
 public class AdsController {
     private final AdsService adsService;
-
-
-
 
     /**
      * Эндпоинт для получения всех объявлений.
@@ -54,7 +48,6 @@ public class AdsController {
         Ads ads = adsService.getAllAds();
         return ResponseEntity.ok(ads);
     }
-
 
     /**
      * Эндпоинт для добавления нового объявления.
@@ -103,7 +96,6 @@ public class AdsController {
         return ResponseEntity.ok(ad);
     }
 
-
     /**
      * Эндпоинт для удаления объявления по его идентификатору.
      *
@@ -126,7 +118,6 @@ public class AdsController {
         adsService.deleteAd(id);
         return ResponseEntity.noContent().build();
     }
-
 
     /**
      * Эндпоинт для обновления информации об объявлении.
@@ -151,7 +142,6 @@ public class AdsController {
         Ad ad = adsService.updateAd(id, updateAd);
         return ResponseEntity.ok(ad);
     }
-
 
     /**
      * Эндпоинт для получения объявлений авторизованного пользователя.
@@ -197,5 +187,3 @@ public class AdsController {
         return ResponseEntity.ok().build();
     }
 }
-
-

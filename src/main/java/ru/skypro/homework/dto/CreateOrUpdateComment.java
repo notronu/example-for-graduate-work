@@ -23,4 +23,3 @@ public class CreateOrUpdateComment {
         this.createdAt = createdAt;
     }
 }
-

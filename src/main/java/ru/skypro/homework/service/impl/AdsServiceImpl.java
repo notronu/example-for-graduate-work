@@ -1,28 +1,59 @@
 package ru.skypro.homework.service.impl;
 
-
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.stereotype.Service;
 import  ru.skypro.homework.dto.*;
 import ru.skypro.homework.entity.AdEntity;
+import ru.skypro.homework.entity.UserEntity;
 import ru.skypro.homework.repository.AdsRepository;
+import ru.skypro.homework.repository.UserRepository;
 import ru.skypro.homework.service.AdsService;
 import ru.skypro.homework.utils.MapperUtils;
-
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
 
 @Service
 @RequiredArgsConstructor
 public class AdsServiceImpl implements AdsService {
 
     private final AdsRepository adsRepository;
+    private final UserRepository userRepository;
 
+    @Override
+    public Ad createAd(CreateOrUpdateAd createOrUpdateAd, MultipartFile image, String username) {
+        // Поиск пользователя по имени
+        UserEntity userEntity = userRepository.findByUsername(username);
+        if (userEntity == null) {
+            throw new IllegalArgumentException("Пользователь не найден");
+        }
 
+        // Создание нового объявления
+        AdEntity adEntity = new AdEntity();
+        adEntity.setTitle(createOrUpdateAd.getTitle());
+        adEntity.setDescription(createOrUpdateAd.getDescription());
+        adEntity.setPrice(createOrUpdateAd.getPrice());
+        adEntity.setImage(image.getOriginalFilename());
+        adEntity.setAuthor(userEntity);
+
+        adsRepository.save(adEntity);
+        return MapperUtils.toAdDto(adEntity);
+    }
+
+    @Override
+    public void deleteAd(int id, String username) {
+        AdEntity adEntity = adsRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Объявление не найдено"));
+
+        if (!adEntity.getAuthor().getUsername().equals(username)) {
+            throw new AccessDeniedException("Вы не являетесь автором этого объявления");
+        }
+
+        adsRepository.delete(adEntity);
+    }
 
     /**
      * Получает список всех объявлений.
@@ -127,5 +158,3 @@ public class AdsServiceImpl implements AdsService {
         }
     }
 }
-
-
