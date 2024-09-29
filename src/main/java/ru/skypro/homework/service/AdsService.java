@@ -14,6 +14,12 @@ public interface AdsService {
 
     Ad createAd(CreateOrUpdateAd createOrUpdateAd, MultipartFile image, String username);
 
+    Ad updateAd(int adId, CreateOrUpdateAd updateAd, String username);
+
+    Ads getAdsByUser(String username);
+
+    void updateAdImage(int adId, MultipartFile image, String username);
+
     void deleteAd(int id, String username);
 
     /**

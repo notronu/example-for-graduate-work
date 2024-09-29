@@ -26,7 +26,7 @@ public class CommentEntity {
 
     @ManyToOne
     @JoinColumn(name = "ad_id", nullable = false)
-    private AdEntity ad;
+    private int ad;
 
     public Integer getId() {
         return id;
@@ -60,11 +60,11 @@ public class CommentEntity {
         this.author = author;
     }
 
-    public AdEntity getAd() {
+    public int getAdId() {
         return ad;
     }
 
-    public void setAd(AdEntity ad) {
+    public void setAdId(int ad) {
         this.ad = ad;
     }
 }

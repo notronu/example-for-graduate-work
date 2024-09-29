@@ -46,4 +46,8 @@ public interface CommentService {
     Comment updateComment(int adId, int commentId, CreateOrUpdateComment createOrUpdateComment);
 
     Comment updateComment(int adId, int commentId, CreateOrUpdateComment createOrUpdateComment, String username);
+
+    Comment createComment(int adId, CreateOrUpdateComment createOrUpdateComment, String username);
+
+    void deleteComment(int commentId, String username);
 }
