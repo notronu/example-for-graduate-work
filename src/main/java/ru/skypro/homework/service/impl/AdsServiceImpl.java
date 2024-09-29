@@ -111,7 +111,7 @@ public abstract class AdsServiceImpl implements AdsService {
     }
 
     @Override
-    public void updateAdImage(int adId, MultipartFile image, String username) throws IOException {
+    public void updateAdImage(int adId, MultipartFile image, String username)  {
         AdEntity adEntity = adsRepository.findById(adId)
                 .orElseThrow(() -> new IllegalArgumentException("Объявление не найдено"));
 

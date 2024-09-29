@@ -3,8 +3,6 @@ package ru.skypro.homework.service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.homework.dto.*;
 
-import java.io.IOException;
-import java.util.List;
 
 /**
  * Интерфейс сервиса для работы с объявлениями.
@@ -19,7 +17,7 @@ public interface AdsService {
 
     Ads getAdsByUser(String username);
 
-    void updateAdImage(int adId, MultipartFile image, String username) throws IOException;
+    void updateAdImage(int adId, MultipartFile image, String username);
 
     void deleteAd(int id, String username);
 
