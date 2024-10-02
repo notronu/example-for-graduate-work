@@ -1,9 +1,14 @@
 package ru.skypro.homework.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.springframework.beans.factory.annotation.Value;
+
+
 
 import javax.persistence.*;
 
+@EqualsAndHashCode(of = "id")
 @Data
 @Entity
 @Table(name = "ads")
@@ -23,11 +28,20 @@ public class AdEntity {
     private String description;
 
     @Column(nullable = true)
+    @Value("${path.to.ad.photo}")
     private String image;
 
     @ManyToOne
-    @JoinColumn(name = "author_id", nullable = false)
-    private UserEntity author;
+    @JoinColumn
+    private UserEntity user;
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
+    }
 
     public Integer getId() {
         return id;
@@ -69,11 +83,4 @@ public class AdEntity {
         this.image = image;
     }
 
-    public UserEntity getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(UserEntity author) {
-        this.author = author;
-    }
 }

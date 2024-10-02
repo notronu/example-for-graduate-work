@@ -1,7 +1,12 @@
 package ru.skypro.homework.service;
 
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.homework.dto.*;
+import org.springframework.security.core.Authentication;
+import ru.skypro.homework.entity.AdEntity;
+
+import java.io.IOException;
 
 
 /**
@@ -9,70 +14,87 @@ import ru.skypro.homework.dto.*;
  * Определяет основные операции, такие как создание, получение, обновление, удаление объявлений,
  * а также управление изображениями и получение объявлений текущего пользователя.
  */
+@Service
 public interface AdsService {
 
-    Ad createAd(CreateOrUpdateAd createOrUpdateAd, MultipartFile image, String username);
-
-    Ad updateAd(int adId, CreateOrUpdateAd updateAd, String username);
-
-    Ads getAdsByUser(String username);
-
-    void updateAdImage(int adId, MultipartFile image, String username);
-
-    void deleteAd(int id, String username);
+    /**
+     * /* Добавляет новое объявление.
+     *
+     *       @param createOrUpdateAd DTO с информацией о новом объявлении.
+     *       @param image              Изображение объявления.
+     *       @param authentication      Аутентификация пользователя.
+     *       @return DTO с информацией о созданном объявлении.
+     *       @throws IOException Если произошла ошибка при загрузке изображения.
+     *      */
+    Ad addAd(CreateOrUpdateAd createOrUpdateAd, MultipartFile image, Authentication authentication) throws IOException;
 
     /**
      * Возвращает список всех объявлений.
      *
-     * @return объект {@link Ads}, содержащий список всех объявлений и их количество.
+     *       @return DTO со списком всех объявлений.
      */
-    Ads getAllAds();
+    Ads getAll();
 
     /**
-     * Создает новое объявление.
+     * Возвращает список объявлений пользователя.
      *
-     * @param createOrUpdateAd объект {@link CreateOrUpdateAd}, содержащий данные для создания объявления.
-     * @param image изображение, прикрепленное к объявлению.
-     * @return объект {@link Ad}, представляющий созданное объявление.
+     *       @param username Имя пользователя.
+     *       @return DTO со списком объявлений пользователя.
      */
-    Ad createAd(CreateOrUpdateAd createOrUpdateAd, MultipartFile image);
+    Ads getMyAds(String username);
 
     /**
-     * Возвращает подробную информацию об объявлении по его идентификатору.
+     * Возвращает объявление по ID.
      *
-     * @param id идентификатор объявления.
-     * @return объект {@link ExtendedAd}, содержащий подробную информацию о объявлении.
+     *       @param id ID объявления.
+     *       @return Объявление.
      */
-    ExtendedAd getAd(int id);
+    AdEntity getAd(Integer id);
 
     /**
-     * Удаляет объявление по его идентификатору.
+     *  Возвращает изображение объявления.
      *
-     * @param id идентификатор объявления для удаления.
+     *       @param id ID объявления.
+     *       @return Изображение объявления.
+     *       @throws IOException Если произошла ошибка при чтении изображения.
      */
-    void deleteAd(int id);
+    byte[] getImage(Integer id) throws IOException;
 
     /**
-     * Обновляет данные объявления по его идентификатору.
+     * Возвращает подробную информацию об объявлении.
      *
-     * @param id идентификатор объявления.
-     * @param updateAd объект {@link CreateOrUpdateAd}, содержащий обновленные данные объявления.
-     * @return объект {@link Ad}, представляющий обновленное объявление.
+     *       @param id ID объявления.
+     *       @return DTO с подробной информацией об объявлении.
      */
-    Ad updateAd(int id, CreateOrUpdateAd updateAd);
+    ExtendedAd getExtendedAd(Integer id);
 
     /**
-     * Возвращает список объявлений текущего авторизованного пользователя.
+     * Обновляет объявление.
      *
-     * @return объект {@link Ads}, содержащий объявления авторизованного пользователя.
+     *       @param id                    Идентификатор объявления.
+     *       @param createOrUpdateAdDto    Данные для обновления объявления.
+     *       @param authentication        Аутентификация пользователя.
+     *       @return Обновленное объявление в виде DTO.
      */
-    Ads getAdsByUser();
+    Ad updateAd(Integer id, CreateOrUpdateAd createOrUpdateAdDto, Authentication authentication);
 
     /**
-     * Обновляет изображение объявления по его идентификатору.
+     * Обновляет изображение объявления.
      *
-     * @param id идентификатор объявления.
-     * @param image новое изображение для объявления.
+     *       @param id       Идентификатор объявления.
+     *       @param image    Новый файл изображения.
+     *       @param authentication Аутентификация пользователя.
+     *       @return Бинарные данные обновленного изображения.
+     *       @throws IOException          Ошибка ввода-вывода.
      */
-    void updateAdImage(int id, MultipartFile image);
+    byte[] updateAdImage(Integer id, MultipartFile image, Authentication authentication) throws IOException;
+
+    /**
+     * Удаляет объявление.
+     *
+     *       @param id                    Идентификатор объявления.
+     *       @param authentication        Аутентификация пользователя.
+     *       @throws ru.skypro.homework.exception.AdNotFoundException  Исключение, если объявление не найдено.
+     */
+    void deleteAd(Integer id, Authentication authentication);
 }

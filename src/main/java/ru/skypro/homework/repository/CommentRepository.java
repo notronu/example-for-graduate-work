@@ -19,4 +19,5 @@ public interface CommentRepository extends JpaRepository<CommentEntity, Integer>
      * @return список комментариев, связанных с указанным объявлением.
      */
     List<CommentEntity> findByAdId(Integer adId);
+
 }

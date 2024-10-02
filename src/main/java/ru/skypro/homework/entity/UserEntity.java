@@ -18,6 +18,9 @@ public class UserEntity {
     @Column(nullable = false, unique = true, length = 32)
     private String username;
 
+    @Column(nullable = false, unique = true)
+    private String email;
+
     @Column(nullable = false, length = 16)
     private String password;
 
@@ -99,5 +102,13 @@ public class UserEntity {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

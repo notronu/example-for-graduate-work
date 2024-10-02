@@ -29,4 +29,21 @@ CREATE TABLE comments
     text       TEXT,
     user_id    INTEGER REFERENCES users (id),
     ads_id INTEGER REFERENCES ads (id)
-)
+);
+
+CREATE TABLE images
+(
+    id serial NOT NULL,
+    size bigint,
+    content_type character varying(255),
+    path character varying(255),
+
+    CONSTRAINT images_pkey PRIMARY KEY (id),
+    CONSTRAINT ad_id_unique UNIQUE (ad_id)
+);
+
+ALTER TABLE images
+    ADD CONSTRAINT ad_pk_fkey FOREIGN KEY (ad_id)
+        REFERENCES ads (pk)
+        ON DELETE CASCADE
+;

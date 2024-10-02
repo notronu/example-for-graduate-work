@@ -1,7 +1,6 @@
 package ru.skypro.homework.utils;
 
 import ru.skypro.homework.dto.*;
-import ru.skypro.homework.entity.AdEntity;
 import ru.skypro.homework.entity.CommentEntity;
 import ru.skypro.homework.entity.UserEntity;
 
@@ -34,40 +33,6 @@ public class MapperUtils {
         return user;
     }
 
-    /**
-     * Преобразует объект {@link AdEntity} в объект {@link Ad} (DTO).
-     *
-     * @param adEntity объект сущности объявления.
-     * @return объект DTO объявления.
-     */
-    public static Ad toAdDto(AdEntity adEntity) {
-        Ad ad = new Ad();
-        ad.setPk(adEntity.getId());
-        ad.setTitle(adEntity.getTitle());
-        ad.setPrice(adEntity.getPrice());
-        ad.setImage(adEntity.getImage());
-        return ad;
-    }
-
-    /**
-     * Преобразует объект {@link AdEntity} в объект {@link ExtendedAd} (расширенный DTO).
-     *
-     * @param adEntity объект сущности объявления.
-     * @return расширенный объект DTO объявления.
-     */
-    public static ExtendedAd toExtendedAdDto(AdEntity adEntity) {
-        ExtendedAd extendedAd = new ExtendedAd();
-        extendedAd.setPk(adEntity.getId());
-        extendedAd.setTitle(adEntity.getTitle());
-        extendedAd.setPrice(adEntity.getPrice());
-        extendedAd.setDescription(adEntity.getDescription());
-        extendedAd.setImage(adEntity.getImage());
-        extendedAd.setAuthorFirstName(adEntity.getAuthor().getFirstName());
-        extendedAd.setAuthorLastName(adEntity.getAuthor().getLastName());
-        extendedAd.setEmail(adEntity.getAuthor().getUsername());
-        extendedAd.setPhone(adEntity.getAuthor().getPhone());
-        return extendedAd;
-    }
 
     /**
      * Преобразует объект {@link CommentEntity} в объект {@link Comment} (DTO).
@@ -87,26 +52,7 @@ public class MapperUtils {
         return comment;
     }
 
-    /**
-     * Преобразует объект {@link CreateOrUpdateAd} (DTO) в объект {@link AdEntity}.
-     *
-     * @param createOrUpdateAd объект DTO для создания или обновления объявления.
-     * @return объект сущности объявления.
-     */
-    public static AdEntity toAdEntity(CreateOrUpdateAd createOrUpdateAd) {
-        AdEntity adEntity = new AdEntity();
-        adEntity.setTitle(createOrUpdateAd.getTitle());
-        adEntity.setPrice(createOrUpdateAd.getPrice());
-        adEntity.setDescription(createOrUpdateAd.getDescription());
-        return adEntity;
-    }
 
-    /**
-     * Преобразует объект {@link CreateOrUpdateComment} (DTO) в объект {@link CommentEntity}.
-     *
-     * @param createOrUpdateComment объект DTO для создания или обновления комментария.
-     * @return объект сущности комментария.
-     */
     // Обратное преобразование из метки времени (long) в LocalDateTime
     public static CommentEntity toCommentEntity(CreateOrUpdateComment createOrUpdateComment) {
         CommentEntity commentEntity = new CommentEntity();

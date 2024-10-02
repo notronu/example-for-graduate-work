@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.skypro.homework.dto.Comment;
 import ru.skypro.homework.dto.CreateOrUpdateComment;
 import ru.skypro.homework.dto.Role;
+import ru.skypro.homework.entity.AdEntity;
 import ru.skypro.homework.entity.CommentEntity;
 import ru.skypro.homework.entity.UserEntity;
 import ru.skypro.homework.repository.CommentRepository;
@@ -56,7 +57,7 @@ public class CommentServiceImpl implements CommentService {
 
         CommentEntity commentEntity = MapperUtils.toCommentEntity(createOrUpdateComment);
         // Убедитесь, что у CommentEntity есть связь с AdEntity (это зависит от вашей схемы БД)
-        commentEntity.setAdId(adId);
+        commentEntity.setAd(new AdEntity());
         commentEntity.setAuthor(userEntity);
 
         commentRepository.save(commentEntity);

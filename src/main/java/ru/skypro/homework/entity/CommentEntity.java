@@ -1,6 +1,8 @@
 package ru.skypro.homework.entity;
 
 import lombok.Data;
+import ru.skypro.homework.dto.Ad;
+
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -26,7 +28,7 @@ public class CommentEntity {
 
     @ManyToOne
     @JoinColumn(name = "ad_id", nullable = false)
-    private int ad;
+    private AdEntity ad;
 
     public Integer getId() {
         return id;
@@ -60,11 +62,4 @@ public class CommentEntity {
         this.author = author;
     }
 
-    public int getAdId() {
-        return ad;
-    }
-
-    public void setAdId(int ad) {
-        this.ad = ad;
-    }
 }

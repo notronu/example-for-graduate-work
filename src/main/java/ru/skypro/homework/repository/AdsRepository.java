@@ -2,6 +2,8 @@ package ru.skypro.homework.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import ru.skypro.homework.entity.AdEntity;
+import ru.skypro.homework.entity.UserEntity;
+
 
 import java.util.List;
 
@@ -15,8 +17,9 @@ public interface AdsRepository extends JpaRepository<AdEntity, Integer> {
     /**
      * Возвращает список объявлений, созданных пользователем с указанным идентификатором автора.
      *
-     * @param authorId идентификатор автора объявлений.
+     * @param userId идентификатор автора объявлений.
      * @return список объявлений, принадлежащих указанному автору.
      */
-    List<AdEntity> findByAuthorId(Integer authorId);
+    List<AdEntity> findAllByUserId(Integer userId);
+
 }

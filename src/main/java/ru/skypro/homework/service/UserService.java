@@ -2,12 +2,18 @@ package ru.skypro.homework.service;
 
 import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.homework.dto.*;
+import ru.skypro.homework.entity.UserEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import java.io.IOException;
 
 /**
  * Интерфейс сервиса для управления данными пользователей.
  * Определяет основные операции для изменения пароля, получения и обновления информации о пользователе, а также обновления аватара.
  */
 public interface UserService {
+
+
 
     /**
      * Устанавливает новый пароль для пользователя.
@@ -33,10 +39,33 @@ public interface UserService {
      */
     UpdateUser updateUser(UpdateUser updateUser);
 
+
+
     /**
-     * Обновляет аватар текущего пользователя.
+     *  Регистрирует нового пользователя.
      *
-     * @param image новое изображение профиля (аватар), прикрепленное к запросу.
+     *       @param dto Данные для регистрации пользователя.
+     *       @return Зарегистрированный пользователь.
+     *       @throws ru.skypro.homework.exception.UserAlreadyRegisteredException Если пользователь с таким email уже существует.
      */
-    void updateImage(MultipartFile image);
+    UserEntity registerUser(Register dto);
+
+    /**
+     *  Возвращает изображение пользователя по его имени.
+     *
+     *       @param username Имя пользователя.
+     *       @return Массив байтов, представляющий изображение.
+     *       @throws UsernameNotFoundException Если пользователь с данным именем не найден.
+     */
+    byte[] getImage(String username);
+
+    /**
+     * Обновляет изображение текущего пользователя.
+     *
+     *       @param username Имя пользователя.
+     *       @param file     Файл изображения.
+     *       @throws IOException             Если произошла ошибка при чтении файла или записи изображения.
+     *       @throws UsernameNotFoundException Если пользователь с данным именем не найден.
+     */
+    void updateMyImage(String username, MultipartFile file) throws IOException;
 }

@@ -8,6 +8,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,6 +18,9 @@ import ru.skypro.homework.dto.UpdateUser;
 import ru.skypro.homework.dto.User;
 import ru.skypro.homework.service.UserService;
 import ru.skypro.homework.utils.MethodLog;
+import org.springframework.security.core.Authentication;
+
+import java.io.IOException;
 
 /**
  * Контроллер для обработки операций, связанных с пользователями.
@@ -115,10 +120,15 @@ public class UserController {
             @ApiResponse(responseCode = "200", description = "OK", content = @Content),
             @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content)
     })
-    @PatchMapping(value = "/me/image", consumes = "multipart/form-data")
-    public ResponseEntity<Void> updateUserImage(@RequestPart("image") MultipartFile image) {
-        log.info("Использован метод {}", MethodLog.getMethodName());
-        userService.updateImage(image);
-        return ResponseEntity.ok().build();
+    @PatchMapping(value = "/me/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Void> updateUserImage(@RequestParam MultipartFile image, Authentication authentication) throws IOException {
+        userService.updateMyImage(authentication.getName(), image);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
+
+    @GetMapping(value = "{username}/image", produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE})
+    public ResponseEntity<byte[]> getUserImage(@PathVariable String username) {
+        return ResponseEntity.ok(userService.getImage(username));
+    }
+
 }
