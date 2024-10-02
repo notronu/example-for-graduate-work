@@ -33,7 +33,6 @@ public class MapperUtils {
         return user;
     }
 
-
     /**
      * Преобразует объект {@link CommentEntity} в объект {@link Comment} (DTO).
      *
@@ -51,7 +50,6 @@ public class MapperUtils {
         comment.setCreatedAt(LocalDateTime.parse(formattedDateTime));
         return comment;
     }
-
 
     // Обратное преобразование из метки времени (long) в LocalDateTime
     public static CommentEntity toCommentEntity(CreateOrUpdateComment createOrUpdateComment) {

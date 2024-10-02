@@ -38,6 +38,7 @@ public class UserServiceImpl implements UserService {
     private String imagePath;
     @Value("${path.to.default.user.image}")
     private String pathToDefaultUserImage;
+
     @Autowired
     public UserServiceImpl(UserRepository userRepository, UserMapper userMapper, PasswordEncoder encoder) {
         this.userRepository = userRepository;
@@ -131,22 +132,22 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-        public void uploadImage(UserEntity userEntity, MultipartFile file) throws IOException {
-            Path path = Path.of(imagePath, userEntity.getEmail() + "." + StringUtils.getFilenameExtension(file.getOriginalFilename()));
+    public void uploadImage(UserEntity userEntity, MultipartFile file) throws IOException {
+        Path path = Path.of(imagePath, userEntity.getEmail() + "." + StringUtils.getFilenameExtension(file.getOriginalFilename()));
 
 
-            Files.createDirectories(path.getParent());
-            Files.deleteIfExists(path);
+        Files.createDirectories(path.getParent());
+        Files.deleteIfExists(path);
 
-            try (
-                    InputStream is = file.getInputStream();
-                    OutputStream os = Files.newOutputStream(path, CREATE_NEW);
-                    BufferedInputStream bis = new BufferedInputStream(is, 1024);
-                    BufferedOutputStream bos = new BufferedOutputStream(os, 1024)
-            ) {
-                bis.transferTo(bos);
-                userEntity.setImage(path.toString());
-                userRepository.save(userEntity);
-            }
+        try (
+                InputStream is = file.getInputStream();
+                OutputStream os = Files.newOutputStream(path, CREATE_NEW);
+                BufferedInputStream bis = new BufferedInputStream(is, 1024);
+                BufferedOutputStream bos = new BufferedOutputStream(os, 1024)
+        ) {
+            bis.transferTo(bos);
+            userEntity.setImage(path.toString());
+            userRepository.save(userEntity);
         }
+    }
 }

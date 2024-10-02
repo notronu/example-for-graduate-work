@@ -8,14 +8,12 @@ import ru.skypro.homework.entity.UserEntity;
 import java.util.Collection;
 import java.util.List;
 
-
 public class MyUserDetails implements UserDetails {
     private UserEntity userEntity;
 
     public MyUserDetails(UserEntity userEntity) {
         this.userEntity = userEntity;
     }
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

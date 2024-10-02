@@ -15,7 +15,6 @@ import ru.skypro.homework.dto.Login;
 import ru.skypro.homework.dto.Register;
 import ru.skypro.homework.service.AuthService;
 
-
 /**
  * Сервис для обработки логики авторизации и регистрации пользователей.
  * Реализует методы для входа в систему и регистрации новых пользователей.
@@ -38,5 +37,4 @@ public class AuthServiceImpl implements AuthService {
         MyUserDetails userDetails = myUserDetailService.loadUserByUsername(loginDto.getUsername());
         return encoder.matches(loginDto.getPassword(), userDetails.getPassword());
     }
-
 }

@@ -8,7 +8,6 @@ import ru.skypro.homework.service.ImageService;
 
 import java.io.IOException;
 
-
 @CrossOrigin(value = "http://localhost:3000")
 @RestController
 @RequestMapping("/C:/avatar")
@@ -28,4 +27,3 @@ public class ImageController {
         }
     }
 }
-

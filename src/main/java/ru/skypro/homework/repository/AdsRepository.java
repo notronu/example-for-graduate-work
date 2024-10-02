@@ -21,5 +21,4 @@ public interface AdsRepository extends JpaRepository<AdEntity, Integer> {
      * @return список объявлений, принадлежащих указанному автору.
      */
     List<AdEntity> findAllByUserId(Integer userId);
-
 }

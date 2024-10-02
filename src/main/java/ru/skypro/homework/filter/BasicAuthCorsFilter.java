@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
 /**
  * Фильтр для добавления заголовка CORS (Cross-Origin Resource Sharing) в ответы на запросы.
  * Этот фильтр срабатывает один раз для каждого запроса и добавляет заголовок, разрешающий использование учетных данных

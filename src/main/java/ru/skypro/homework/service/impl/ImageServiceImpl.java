@@ -22,7 +22,6 @@ import java.nio.file.StandardOpenOption;
 import java.util.Objects;
 import java.util.UUID;
 
-
 @Service
 @RequiredArgsConstructor
 public class ImageServiceImpl implements ImageService {

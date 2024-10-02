@@ -15,6 +15,7 @@ public class UserMapper {
         userEntity.setFirstName(dto.getFirstName());
         userEntity.setLastName(dto.getLastName());
         userEntity.setRole(dto.getRole());
+        userEntity.setUsername(dto.getUsername().toLowerCase());
         return userEntity;
     }
 }

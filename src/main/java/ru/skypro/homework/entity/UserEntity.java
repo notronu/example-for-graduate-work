@@ -21,16 +21,16 @@ public class UserEntity {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false, length = 16)
+    @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false, length = 16)
+    @Column(nullable = false)
     private String firstName;
 
-    @Column(nullable = false, length = 16)
+    @Column(nullable = false)
     private String lastName;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false)
     private String phone;
 
     @Enumerated(EnumType.STRING)
@@ -110,5 +110,8 @@ public class UserEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public UserEntity() {
     }
 }

@@ -90,5 +90,4 @@ public class AdsController {
         }
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
-
 }

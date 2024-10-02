@@ -130,5 +130,4 @@ public class UserController {
     public ResponseEntity<byte[]> getUserImage(@PathVariable String username) {
         return ResponseEntity.ok(userService.getImage(username));
     }
-
 }
