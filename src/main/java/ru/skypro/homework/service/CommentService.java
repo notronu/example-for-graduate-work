@@ -1,53 +1,62 @@
 package ru.skypro.homework.service;
 
+import org.springframework.security.core.Authentication;
 import ru.skypro.homework.dto.Comment;
+import ru.skypro.homework.dto.Comments;
 import ru.skypro.homework.dto.CreateOrUpdateComment;
+import ru.skypro.homework.entity.CommentEntity;
+import ru.skypro.homework.exception.NotFoundException;
 
-import java.util.List;
-
-/**
- * Сервис для работы с комментариями к объявлениям.
- * Предоставляет методы для получения, создания, обновления и удаления комментариев.
- */
 public interface CommentService {
 
     /**
-     * Получает список комментариев для конкретного объявления.
+     * Возвращает список комментариев к объявлению.
      *
-     * @param adId идентификатор объявления.
-     * @return список объектов {@link Comment}, связанных с объявлением.
+     *       @param adPk            Идентификатор объявления
+     *       @param authentication Аутентификация пользователя
+     *       @return Список комментариев к объявлению
+     *       @throws NotFoundException Если объявление не найдено
      */
-    List<Comment> getCommentsByAdId(int adId);
+    Comments getComments(Integer adPk, Authentication authentication);
 
     /**
-     * Создает новый комментарий для объявления.
+     * Добавляет новый комментарий к объявлению.
      *
-     * @param adId идентификатор объявления, к которому будет добавлен комментарий.
-     * @param createOrUpdateComment объект {@link CreateOrUpdateComment}, содержащий текст комментария.
-     * @return объект {@link Comment}, представляющий созданный комментарий.
+     *       @param dto           Данные нового комментария
+     *       @param authentication Аутентификация пользователя
+     *       @return Созданный комментарий
+     *       @throws NotFoundException Если объявление не найдено
      */
-    Comment createComment(int adId, CreateOrUpdateComment createOrUpdateComment);
+    Comment addComment(Integer adPk, CreateOrUpdateComment dto, Authentication authentication);
 
     /**
-     * Удаляет комментарий по его идентификатору.
+     *  Обновляет комментарий.
      *
-     * @param commentId идентификатор комментария, который нужно удалить.
+     *       @param adPk                       Идентификатор объявления
+     *       @param commentId                   Идентификатор комментария
+     *       @param createOrUpdateCommentDto Данные для обновления комментария
+     *       @param authentication             Аутентификация пользователя
+     *       @return Обновленный комментарий
+     *       @throws NotFoundException Если комментарий не найден
      */
-    void deleteComment(int commentId);
+    Comment updateComment(Integer adPk, Integer commentId, CreateOrUpdateComment createOrUpdateCommentDto, Authentication authentication);
 
     /**
-     * Обновляет существующий комментарий.
+     * Возвращает комментарий по идентификатору.
      *
-     * @param adId идентификатор объявления, к которому относится комментарий.
-     * @param commentId идентификатор комментария, который нужно обновить.
-     * @param createOrUpdateComment объект {@link CreateOrUpdateComment}, содержащий обновленный текст комментария.
-     * @return обновленный объект {@link Comment}.
+     *       @param pk Идентификатор комментария
+     *       @return Комментарий
+     *       @throws NotFoundException Если комментарий не найден
      */
-    Comment updateComment(int adId, int commentId, CreateOrUpdateComment createOrUpdateComment);
+    CommentEntity getComment(Integer pk);
 
-    Comment updateComment(int adId, int commentId, CreateOrUpdateComment createOrUpdateComment, String username);
-
-    Comment createComment(int adId, CreateOrUpdateComment createOrUpdateComment, String username);
-
-    void deleteComment(int commentId, String username);
+    /**
+     * Удаляет комментарий.
+     *
+     *       @param adId           Идентификатор объявления
+     *       @param commentId      Идентификатор комментария
+     *       @param authentication Аутентификация пользователя
+     *       @throws NotFoundException Если комментарий не найден
+     */
+    void deleteComment(Integer adId, Integer commentId, Authentication authentication);
 }

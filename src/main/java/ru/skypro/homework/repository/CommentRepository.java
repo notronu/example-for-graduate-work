@@ -1,6 +1,7 @@
 package ru.skypro.homework.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import ru.skypro.homework.entity.CommentEntity;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
  * Предоставляет методы для выполнения операций с базой данных, таких как сохранение, обновление, удаление и поиск комментариев.
  * Наследует основные методы для работы с сущностями от {@link JpaRepository}.
  */
+@Repository
 public interface CommentRepository extends JpaRepository<CommentEntity, Integer> {
 
     /**
