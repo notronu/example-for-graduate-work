@@ -9,7 +9,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String phone;
-    private String role;
+    private Role role;
     private String image;
 
     public Integer getId() {
@@ -52,11 +52,11 @@ public class User {
         this.phone = phone;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 

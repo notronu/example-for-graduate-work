@@ -2,10 +2,13 @@ package ru.skypro.homework.dto;
 
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 public class CreateOrUpdateComment {
     private String text;
-    private long createdAt;
+
+    private LocalDateTime createdAt;
 
     public String getText() {
         return text;
@@ -15,11 +18,11 @@ public class CreateOrUpdateComment {
         this.text = text;
     }
 
-    public long getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(long createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 }

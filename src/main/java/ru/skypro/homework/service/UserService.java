@@ -4,54 +4,29 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 
-import ru.skypro.homework.dto.*;
-import ru.skypro.homework.entity.UserEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.multipart.MultipartFile;
+
+import ru.skypro.homework.dto.NewPassword;
+import ru.skypro.homework.dto.Register;
+import ru.skypro.homework.dto.UpdateUser;
+import ru.skypro.homework.dto.User;
+import ru.skypro.homework.entity.UserEntity;
+import ru.skypro.homework.exception.UserAlreadyRegisteredException;
 
 import java.io.IOException;
 
-/**
- * Интерфейс сервиса для управления данными пользователей.
- * Определяет основные операции для изменения пароля, получения и обновления информации о пользователе, а также обновления аватара.
- */
 public interface UserService {
 
-
-
     /**
-     * Устанавливает новый пароль для пользователя.
-     * Проверяет текущий пароль и обновляет его на новый, если проверка успешна.
+     * Обновляет пароль пользователя.
      *
-     * @param newPassword объект {@link NewPassword}, содержащий текущий и новый пароли.
-     * @return {@code true}, если пароль был успешно изменен, иначе {@code false}.
+     *       @param dto             Объект, содержащий новый пароль и текущий пароль.
+     *       @param username       Имя пользователя.
+     *       @throws ru.skypro.homework.exception.PasswordIsNotCorrectException Если текущий пароль неверен.
+     *       @throws UsernameNotFoundException    Если пользователь с данным именем не найден.
      */
-    boolean setNewPassword(NewPassword newPassword);
-
-    /**
-     * Возвращает информацию о текущем пользователе.
-     *
-     * @return объект {@link User}, представляющий данные о текущем пользователе.
-     */
-    User getUser();
-
-    /**
-     * Обновляет информацию о текущем пользователе.
-     *
-     * @param updateUser объект {@link UpdateUser}, содержащий обновленные данные пользователя.
-     * @return объект {@link UpdateUser}, представляющий обновленные данные пользователя.
-     */
-    UpdateUser updateUser(UpdateUser updateUser);
-
-
-
-    /**
-     *  Регистрирует нового пользователя.
-     *
-     *       @param dto Данные для регистрации пользователя.
-     *       @return Зарегистрированный пользователь.
-     *       @throws ru.skypro.homework.exception.UserAlreadyRegisteredException Если пользователь с таким email уже существует.
-     */
-    UserEntity registerUser(Register dto);
+    void updatePassword(NewPassword dto, String username);
 
     /**
      *  Возвращает изображение пользователя по его имени.
@@ -63,6 +38,25 @@ public interface UserService {
     byte[] getImage(String username);
 
     /**
+     * Возвращает информацию о текущем пользователе.
+     *
+     *       @param username Имя пользователя.
+     *       @return Объект UserDto, содержащий информацию о пользователе.
+     *       @throws UsernameNotFoundException Если пользователь с данным именем не найден.
+     */
+    User getInfoAboutMe(String username);
+
+    /**
+     * Обновляет информацию о текущем пользователе.
+     *
+     *       @param username Имя пользователя.
+     *       @param dto      Объект UpdateUserDto, содержащий обновленные данные.
+     *       @return Объект UpdateUserDto, содержащий обновленные данные.
+     *       @throws UsernameNotFoundException Если пользователь с данным именем не найден.
+     */
+    UpdateUser updateInfoAboutMe(String username, UpdateUser dto);
+
+    /**
      * Обновляет изображение текущего пользователя.
      *
      *       @param username Имя пользователя.
@@ -71,4 +65,13 @@ public interface UserService {
      *       @throws UsernameNotFoundException Если пользователь с данным именем не найден.
      */
     void updateMyImage(String username, MultipartFile file) throws IOException;
+
+    /**
+     *  Регистрирует нового пользователя.
+     *
+     *       @param dto Данные для регистрации пользователя.
+     *       @return Зарегистрированный пользователь.
+     *       @throws UserAlreadyRegisteredException Если пользователь с таким email уже существует.
+     */
+    UserEntity registerUser(Register dto);
 }
