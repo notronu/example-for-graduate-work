@@ -18,6 +18,7 @@ import javax.validation.Valid;
 public class RegistrationController {
 
     private final RegistrationService registrationService;
+
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody Register register) {
         if (registrationService.register(register)) {

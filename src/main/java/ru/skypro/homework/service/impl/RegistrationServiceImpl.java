@@ -16,7 +16,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 
     @Override
     public boolean register(Register register) {
-        if(userRepository.findByEmail(register.getUsername()).isPresent()) {
+        if (userRepository.findByEmail(register.getUsername()).isPresent()) {
             return false;
         } else {
             userService.registerUser(register);

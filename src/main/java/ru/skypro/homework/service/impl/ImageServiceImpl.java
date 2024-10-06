@@ -29,6 +29,7 @@ public class ImageServiceImpl implements ImageService {
 
     @Value("${path.to.avatars.folder}")
     private String avatarPath;
+
     @Override
     public ImageEntity saveImage(MultipartFile imageFile) throws IOException {
         ImageEntity image = new ImageEntity();
@@ -36,10 +37,12 @@ public class ImageServiceImpl implements ImageService {
 
         return getSave(image);
     }
+
     @Override
     public ImageEntity getImage(Integer imageId) {
         return imageRepository.findById(imageId).get();
     }
+
     @Override
     public ImageEntity updateImage(MultipartFile imageFile, Integer imageId) throws IOException {
         ImageEntity image = getImage(imageId);
@@ -50,14 +53,17 @@ public class ImageServiceImpl implements ImageService {
         ImageEntity newPathAndSaveFile = createNewPathAndSaveFile(imageFile, image);
         return getSave(newPathAndSaveFile);
     }
+
     @Override
     public byte[] getByteFromFile(String path) throws IOException {
         return Files.readAllBytes(Path.of(avatarPath, path));
     }
+
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public ImageEntity getSave(ImageEntity image) {
         return imageRepository.save(image);
     }
+
     private ImageEntity createNewPathAndSaveFile(MultipartFile imageFile, ImageEntity image) throws IOException {
         String originalFilename = imageFile.getOriginalFilename();
 
@@ -74,6 +80,7 @@ public class ImageServiceImpl implements ImageService {
 
         return image;
     }
+
     private void readAndWriteInTheDirectory(MultipartFile fileImage, Path path) throws IOException {
         try (
                 InputStream inputStream = fileImage.getInputStream();
@@ -84,6 +91,7 @@ public class ImageServiceImpl implements ImageService {
             bufferedInputStream.transferTo(bufferedOutputStream);
         }
     }
+
     private String getExtension(String fileName) {
         return fileName.substring(fileName.lastIndexOf(".") + 1);
     }

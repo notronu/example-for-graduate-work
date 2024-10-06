@@ -40,12 +40,13 @@ public class AdsServiceImpl implements AdsService {
 
     @Override
     public Ad addAd(CreateOrUpdateAd createOrUpdateAd, MultipartFile image, Authentication authentication) throws IOException {
-        UserEntity userEntity = userRepository.findByEmail(authentication.getName()).orElseThrow(()-> new UsernameNotFoundException(authentication.getName()));
+        UserEntity userEntity = userRepository.findByEmail(authentication.getName()).orElseThrow(() -> new UsernameNotFoundException(authentication.getName()));
         AdEntity adEntity = adMapper.toEntity(createOrUpdateAd);
         adEntity.setUser(userEntity);
         adEntity = adsRepository.save(adEntity);
         return adMapper.toAdDto(adsRepository.save(uploadImage(adEntity, image)));
     }
+
     private AdEntity uploadImage(AdEntity adEntity, MultipartFile image) throws IOException {
         Path filePath = Path.of(photoPath, adEntity.hashCode() + "." + StringUtils.getFilenameExtension(image.getOriginalFilename()));
         Files.createDirectories(filePath.getParent());
@@ -62,28 +63,34 @@ public class AdsServiceImpl implements AdsService {
         }
 
     }
+
     @Override
     public Ads getAll() {
         return adMapper.toAdsDto(adsRepository.findAll());
     }
+
     @Override
     public Ads getMyAds(String username) {
-        UserEntity userEntity = userRepository.findByEmail(username).orElseThrow(()-> new UsernameNotFoundException(username));
+        UserEntity userEntity = userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException(username));
         return adMapper.toAdsDto(adsRepository.findAllByUserId(userEntity.getId()));
     }
+
     @Override
     public AdEntity getAd(Integer id) {
         return adsRepository.findById(id).orElseThrow(() -> new AdNotFoundException(id));
     }
+
     @Override
     public byte[] getImage(Integer id) throws IOException {
         AdEntity adEntity = getAd(id);
         return Files.readAllBytes(Path.of(adEntity.getImage()));
     }
+
     @Override
     public ExtendedAd getExtendedAd(Integer id) {
         return adMapper.toExtendedAdDto(getAd(id));
     }
+
     @Override
     public Ad updateAd(Integer id, CreateOrUpdateAd createOrUpdateAd, Authentication authentication) {
         AdEntity adEntity = getAd(id);
@@ -92,6 +99,7 @@ public class AdsServiceImpl implements AdsService {
         adEntity.setPrice(createOrUpdateAd.getPrice());
         return adMapper.toAdDto(adsRepository.save(adEntity));
     }
+
     @Override
     public byte[] updateAdImage(Integer id, MultipartFile image, Authentication authentication) throws IOException {
 
@@ -101,6 +109,7 @@ public class AdsServiceImpl implements AdsService {
 
 
     }
+
     @Override
     public void deleteAd(Integer id, Authentication authentication) throws AdNotFoundException {
         if (adsRepository.existsById(id)) {

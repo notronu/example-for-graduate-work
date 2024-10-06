@@ -5,7 +5,6 @@ import lombok.EqualsAndHashCode;
 import org.springframework.beans.factory.annotation.Value;
 
 
-
 import javax.persistence.*;
 
 @EqualsAndHashCode(of = "id")

@@ -1,8 +1,12 @@
 package ru.skypro.homework.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import ru.skypro.homework.entity.AdEntity;
 import ru.skypro.homework.entity.CommentEntity;
+import ru.skypro.homework.entity.UserEntity;
 
 import java.util.List;
 
@@ -21,4 +25,7 @@ public interface CommentRepository extends JpaRepository<CommentEntity, Integer>
      * @return список комментариев, связанных с указанным объявлением.
      */
     List<CommentEntity> findByAdId(Integer adId);
+
+    @Query("SELECT COUNT(c) > 0 FROM CommentEntity c WHERE c.author = :author AND c.ad = :ad AND c.text = :text")
+    boolean existsByAuthorAndAdAndText(@Param("author") UserEntity author, @Param("ad") AdEntity ad, @Param("text") String text);
 }

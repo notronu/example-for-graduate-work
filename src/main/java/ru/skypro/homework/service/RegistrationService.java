@@ -7,8 +7,8 @@ public interface RegistrationService {
     /**
      * Регистрирует нового пользователя.
      *
-     *       @param register Данные для регистрации нового пользователя.
-     *       @return true, если регистрация прошла успешно, иначе false.
+     * @param register Данные для регистрации нового пользователя.
+     * @return true, если регистрация прошла успешно, иначе false.
      */
     boolean register(Register register);
 }

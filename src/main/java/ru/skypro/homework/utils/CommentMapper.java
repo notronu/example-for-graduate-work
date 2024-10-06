@@ -10,15 +10,16 @@ import ru.skypro.homework.entity.UserEntity;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
 @Service
 public class CommentMapper {
-    public CommentEntity toEntity (CreateOrUpdateComment createOrUpdateComment){
+    public CommentEntity toEntity(CreateOrUpdateComment createOrUpdateComment) {
         CommentEntity commentEntity = new CommentEntity();
         commentEntity.setText(createOrUpdateComment.getText());
         return commentEntity;
     }
 
-    public Comment toCommentDto(CommentEntity commentEntity){
+    public Comment toCommentDto(CommentEntity commentEntity) {
         Comment comment = new Comment();
         comment.setPk(commentEntity.getId());
         comment.setCreatedAt(commentEntity.getCreatedAt());

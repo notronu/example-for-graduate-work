@@ -12,7 +12,9 @@ import ru.skypro.homework.dto.UpdateUser;
 import ru.skypro.homework.dto.User;
 
 import org.springframework.security.core.Authentication;
+
 import java.io.IOException;
+
 import ru.skypro.homework.exception.PasswordIsNotCorrectException;
 import ru.skypro.homework.service.impl.UserServiceImpl;
 
