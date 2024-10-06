@@ -26,6 +26,5 @@ public interface CommentRepository extends JpaRepository<CommentEntity, Integer>
      */
     List<CommentEntity> findByAdId(Integer adId);
 
-    @Query("SELECT COUNT(c) > 0 FROM CommentEntity c WHERE c.author = :author AND c.ad = :ad AND c.text = :text")
-    boolean existsByAuthorAndAdAndText(@Param("author") UserEntity author, @Param("ad") AdEntity ad, @Param("text") String text);
+
 }
