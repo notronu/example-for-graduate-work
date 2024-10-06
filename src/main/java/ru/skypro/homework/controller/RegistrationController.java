@@ -1,5 +1,8 @@
 package ru.skypro.homework.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +21,13 @@ import javax.validation.Valid;
 public class RegistrationController {
 
     private final RegistrationService registrationService;
+
+    @Operation(summary = "Регистрация нового пользователя",
+            description = "Эндпоинт для регистрации нового пользователя.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Пользователь успешно зарегистрирован"),
+            @ApiResponse(responseCode = "400", description = "Некорректные данные для регистрации")
+    })
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody Register register) {
         if (registrationService.register(register)) {
