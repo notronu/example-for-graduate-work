@@ -50,7 +50,6 @@ public class UserServiceImpl implements UserService {
             throw new PasswordIsNotCorrectException();
         }
     }
-
     @Override
     public byte[] getImage(String username) {
         try {
@@ -63,13 +62,11 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException(e);
         }
     }
-
     @Override
     public User getInfoAboutMe(String username) {
         UserEntity userEntity = userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User is not found"));
         return UserMapper.toDto(userEntity);
     }
-
     @Override
     public UpdateUser updateInfoAboutMe(String username, UpdateUser dto) {
         UserEntity userEntity = userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User is not found"));
@@ -79,13 +76,11 @@ public class UserServiceImpl implements UserService {
         userRepository.save(userEntity);
         return dto;
     }
-
     @Override
     public void updateMyImage(String username, MultipartFile file) throws IOException {
         UserEntity userEntity = userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User is not found"));
         uploadImage(userEntity, file);
     }
-
     @Override
     public UserEntity registerUser(Register dto) {
         if (userRepository.findByEmail(dto.getUsername()).isPresent()) {
@@ -96,7 +91,6 @@ public class UserServiceImpl implements UserService {
             return userRepository.save(userEntity);
         }
     }
-
     public void uploadImage(UserEntity userEntity, MultipartFile file) throws IOException {
         Path path = Path.of(imagePath, userEntity.getEmail() + "." + StringUtils.getFilenameExtension(file.getOriginalFilename()));
 

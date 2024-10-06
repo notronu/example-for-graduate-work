@@ -10,20 +10,14 @@ import ru.skypro.homework.dto.Register;
 public interface AuthService {
 
     /**
-     * Проверяет валидность логина пользователя.
+     * Выполняет авторизацию пользователя на основе его имени пользователя и пароля.
      *
-     * @param userName Имя пользователя.
-     * @param password Пароль пользователя.
-     * @return true, если логин и пароль верны, false - иначе.
+     * @param userName имя пользователя для входа.
+     * @param password пароль для входа.
+     * @return {@code true}, если авторизация успешна, иначе {@code false}.
      */
     boolean login(String userName, String password);
 
-    /**
-     * Проверяет валидность логина пользователя.
-     *
-     * @param login Объект, содержащий имя пользователя и пароль.
-     * @return true, если логин и пароль верны, false - иначе.
-     */
     boolean login(Login login);
 
 }

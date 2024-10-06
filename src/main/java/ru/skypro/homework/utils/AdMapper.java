@@ -1,6 +1,5 @@
 package ru.skypro.homework.utils;
 
-
 import org.springframework.stereotype.Service;
 
 import ru.skypro.homework.dto.Ad;
@@ -11,7 +10,6 @@ import ru.skypro.homework.entity.AdEntity;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
 
 @Service
 public class AdMapper {
@@ -39,7 +37,7 @@ public class AdMapper {
         return ads;
     }
 
-    public AdEntity toEntity(CreateOrUpdateAd createOrUpdateAd) {
+    public AdEntity toEntity (CreateOrUpdateAd createOrUpdateAd) {
         AdEntity adEntity = new AdEntity();
 
         adEntity.setTitle(createOrUpdateAd.getTitle());

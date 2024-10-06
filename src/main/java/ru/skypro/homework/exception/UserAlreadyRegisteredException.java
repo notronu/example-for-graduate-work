@@ -1,14 +1,40 @@
 package ru.skypro.homework.exception;
 
+/**
+ * Исключение, указывающее, что пользователь с данным именем уже зарегистрирован.
+ * <p>
+ * Это исключение выбрасывается в тех случаях, когда попытка регистрации нового пользователя
+ * с именем пользователя, которое уже существует в системе, оказывается неуспешной.
+ * </p>
+ *
+ * @author <Ваше Имя>
+ */
 public class UserAlreadyRegisteredException extends RuntimeException {
 
+    /**
+     * Имя пользователя, который уже зарегистрирован.
+     */
     private final String username;
 
+    /**
+     * Конструктор исключения с указанием имени уже зарегистрированного пользователя.
+     *
+     * @param username Имя пользователя, который уже существует в системе.
+     */
     public UserAlreadyRegisteredException(String username) {
-        this. username = username;
+        this.username = username;
     }
+
+    /**
+     * Возвращает сообщение об ошибке, содержащее имя пользователя.
+     * <p>
+     * Сообщение информирует, что пользователь с данным именем уже зарегистрирован.
+     * </p>
+     *
+     * @return Сообщение об ошибке с именем пользователя.
+     */
     @Override
     public String getMessage() {
-        return "User with username - " + username + " already registered";
+        return "Пользователь с именем - " + username + " уже зарегистрирован";
     }
 }
