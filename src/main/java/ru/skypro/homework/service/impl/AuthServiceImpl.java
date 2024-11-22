@@ -42,6 +42,7 @@ public class AuthServiceImpl implements AuthService {
                         .roles(register.getRole().name())
                         .build());
         return true;
+
     }
 
 }
